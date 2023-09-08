@@ -1,25 +1,31 @@
 {% extends 'base/main.html' %}
 {% block content %}
+{% load static %}
+
+<h1>Hi {{ request.user }}</h1>
 
 {% if request.user.is_authenticated %}
-    <p>{{ request.user}}</p>
-    <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}">login</a>
-{% endif %}
+       <a href="{% url 'logout' %}"><button>
+        Logout
+      </button></a>
+      
+        {% else %}
+        <a href="{% url 'login' %}"><button>
+            Login</button></a> 
+        {% endif %}
 
 
-    <hr>
+<a href="{% url 'task-create' %}">
+    <div>
+    </div>
+    <b>
+        Add New Task
+    </b>
+    <button>
+    +
+    </button></a>
 
-<h1>My To DO List {{color}}</h1>
 
-
-<a href="{% url 'task-create' %}">Add Task</a>
-
-<form method="get">
-    <input type="text" name="search-area">
-    <input type="submit" value="Search">
-</form>
 
 <table>
     <tr>
@@ -29,11 +35,48 @@
     </tr>
     {% for task in tasks %}
     <tr>
-        <td>{{ task.title }}</td>
+        
+        <td>
+            {% if task.complete %}
+            <div class="[text-decoration:line-through]">
+            <a href="{% url 'task-update' task.id %}">
+                
+                <button>
+                    {{ task.title }}
+                </button>
+            </a>
+            {% else %}
+            <a href="{% url 'task-update' task.id %}">
+                <button>
+                    {{ task.title }}
+                </button>
+                </a>
+                {% endif %}
 
-        <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
-        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+        </div></td>
+        <td>
+            <div>
+            <a href="{% url 'task' task.id %}">
+            <img 
+            alt=""
+            src="{% static 'base/public/frame.svg' %}">
+            </a>
+            </div>
+            <div>
+                <a href="{% url 'task-update' task.id %}">
+                <img 
+                alt=""
+                src="{% static 'base/public/edit-2-svgrepo-com.svg' %}">
+                </a>
+                </div>
+        </td>
+        <td>
+            
+        </td>
+        
     </tr>
+    
+
     {% empty %}
         <h3>No items in list</h3>
     {% endfor %}

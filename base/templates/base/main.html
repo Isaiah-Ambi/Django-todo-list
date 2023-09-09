@@ -7,9 +7,10 @@
     
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-    <link rel="stylesheet" href="{% static 'base/style.css' %}">
+
     <link rel="stylesheet" href="{% static 'base/pico.css' %}">
     <link rel="stylesheet" href="{% static 'base/pico.min.css.css' %}">
+    <link rel="stylesheet" href="{% static 'base/style.css' %}">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
@@ -17,8 +18,39 @@
     <title>To Do Items</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li>
+                <a href="#" class="secondary">
+                    <strong>Hello {{ request.user|title }}</strong>
+                </a>
+            </li>
+        </ul>
+        <ul>
+                <li></li>   
+        </ul>
+            <ul>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <a class="secondary" href="{% url 'logout' %}">
+                        Logout
+                    </a>
+               
+                    {% else %}
+                    <a class="secondary" href="{% url 'login' %}">
+                            <button>
+                                Login
+                            </button>
+                    </a> 
+                    {% endif %}
+            
+                </li>
+            </ul>
+        
+    </nav>
+    
     <main class="container">
-
+        
         
         {% block content %}
 

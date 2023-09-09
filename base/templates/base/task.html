@@ -1,2 +1,12 @@
-<h1>Task: {{task}}</h1>
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
 
+<section>
+        <h2>{{task}}</h2>
+    
+    <p>{{task.description}}</p>
+    
+
+</section>
+{% endblock content %}
